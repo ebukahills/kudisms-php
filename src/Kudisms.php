@@ -5,6 +5,8 @@
 // http://account.kudisms.net/api/?username=user&password=pass&message=test &sender=welcome&mobiles=2348030000000,2348020000000
 // http://account.kudisms.net/api/?username=michael_umanah@yahoo.com&password=aniebiet&message=test&sender=welcome&mobiles=2347062359125,
 
+// namespace Sccofield\Kudisms;
+
 
 class Kudisms {
 
@@ -28,18 +30,21 @@ class Kudisms {
 
   public function formatNumber($number) {
     $prefix = '234' ;
-    $stringnum = (String)$number;
+    // $stringnum = (String)$number;
+    $stringnum = $number;
     $num = trim($stringnum," ");
     if (strlen($num) <= 10) {
       return $prefix . $num;
-    } else if (substr($num, 1) == '0') {
+    } else if (substr( $num, 0, 1 ) === '0' && strlen($num) === 11 ) {
       return $prefix . substr($num, 1);
-    } else if (substr($num, 4) == '+234') {
-      return $prefix . substr($num, 1);
+    } else if (substr($num, 0, 4) === '+234') {
+      return $prefix . substr($num, 4);
     } else {
       return $num;
     }
   }
+
+  
 
   public function sendsms($number, $message){
     if(is_array($number) == true){
