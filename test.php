@@ -10,5 +10,6 @@ $kudisms = new Kudisms('michael_umanah@yahoo.com', 'aniebiet', 'smskernel');
 
 // $number = $kudisms->formatNumber(2347062359125);
 // print_r($number);
-$kudisms->sendsms(2347062359125, 'Hellomatar hj');  
+$numbers = [2347062359125, 2347062359126, 2347062359127];
+$kudisms->sendsms($numbers, 'Hellomatar hj');  
    

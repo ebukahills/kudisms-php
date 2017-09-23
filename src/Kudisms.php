@@ -42,8 +42,14 @@ class Kudisms {
   }
 
   public function sendsms($number, $message){
+    if(is_array($number) == true){
+      $formated_number = implode(",", $number);
+    }else{
+      $formated_number = $number;
+    }
+    
     $msg = str_replace(" ","%20",$message);
-    $sms_url = 'http://account.kudisms.net/api/?username='.$this->username.'&password='.$this->password.'&message='.$msg.'&sender='.$this->senderId.'&mobiles='.$number.',';
+    $sms_url = 'http://account.kudisms.net/api/?username='.$this->username.'&password='.$this->password.'&message='.$msg.'&sender='.$this->senderId.'&mobiles='.$formated_number.',';
     $curl = curl_init();
     curl_setopt_array($curl, array(
         CURLOPT_URL => $sms_url
