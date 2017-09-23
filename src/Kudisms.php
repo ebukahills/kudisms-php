@@ -28,11 +28,11 @@ class Kudisms {
     // also get the error and response code 
   }
 
-  public function formatNumber($number) {
+  static function formatNumber ($number) {
     $prefix = '234' ;
     // $stringnum = (String)$number;
     $stringnum = $number;
-    $num = trim($stringnum," ");
+    $num = trim($stringnum, " ");
     if (strlen($num) <= 10) {
       return $prefix . $num;
     } else if (substr( $num, 0, 1 ) === '0' && strlen($num) === 11 ) {
@@ -44,17 +44,17 @@ class Kudisms {
     }
   }
 
-  
-
-  public function sendsms($number, $message){
-    if(is_array($number) == true){
-      $formated_number = implode(",", $number);
+  public function sendsms($num, $message){
+    if(is_array($num) == true){
+      $formated_number = array_map('Kudisms::formatNumber', $num);
+      $receipients = implode(",", $formated_number);
     }else{
-      $formated_number = $number;
+      $formated_number = $this->formatNumber($num);
+      $receipients = $formated_number;
     }
-    
+
     $msg = str_replace(" ","%20",$message);
-    $sms_url = 'http://account.kudisms.net/api/?username='.$this->username.'&password='.$this->password.'&message='.$msg.'&sender='.$this->senderId.'&mobiles='.$formated_number.',';
+    $sms_url = 'http://account.kudisms.net/api/?username='.$this->username.'&password='.$this->password.'&message='.$msg.'&sender='.$this->senderId.'&mobiles='.$receipients.',';
     $curl = curl_init();
     curl_setopt_array($curl, array(
         CURLOPT_URL => $sms_url

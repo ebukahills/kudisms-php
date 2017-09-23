@@ -9,10 +9,12 @@ require_once 'src/Kudisms.php';
 $kudisms = new Kudisms($username, $password, $senderId);
 
 // Send SMS
-// $numbers must be in this format for now 2347062359125
+// $numbers must be either a string or an arrays of strings.
+//$numbers can be in any of these formats '07062359125', '+2347062359125', '2347062359125'
+//$message must be a string.
 $kudisms->sendsms($number, $message);  
-// numbers: String || [String]
-// message: String
+// The response is a JSON object.
+
 
 // Check SMS Balance
 $kudisms->checkBalance();
