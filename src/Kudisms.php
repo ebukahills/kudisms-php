@@ -1,11 +1,5 @@
 <?php 
 
-
-// http://account.kudisms.net/api/?username=michael_umanah@yahoo.com&password=aniebiet&action=balance
-// http://account.kudisms.net/api/?username=user&password=pass&message=test &sender=welcome&mobiles=2348030000000,2348020000000
-// http://account.kudisms.net/api/?username=michael_umanah@yahoo.com&password=aniebiet&message=test&sender=welcome&mobiles=2347062359125,
-
-
 class Kudisms {
 
   function __construct($username, $password, $senderId){
@@ -23,13 +17,13 @@ class Kudisms {
     ));
     $result = curl_exec($curl);
     curl_close($curl);
-    // also get the error and response code 
+    //TODO: Get error and response codes
   }
 
   public function formatNumber($number) {
     $prefix = '234' ;
     $stringnum = (String)$number;
-    $num = trim($stringnum," ");
+    $num = trim($stringnum, " ");
     if (strlen($num) <= 10) {
       return $prefix . $num;
     } else if (substr($num, 1) == '0') {
